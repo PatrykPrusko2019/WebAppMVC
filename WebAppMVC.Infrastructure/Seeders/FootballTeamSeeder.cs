@@ -27,7 +27,7 @@ namespace WebAppMVC.Infrastructure.Seeders
                     
                     foreach (var teamName in listsTeamsFirstLeagua)
                     {
-                        league.FootballTeams.Add(new FootballTeam() { Name = teamName, MeetingsWon = 0, Points = 0, LeagueName = "Belgian" });
+                        league.FootballTeams.Add(new FootballTeam() { Name = teamName, MeetingsWon = 0, Points = 0, LeagueName = league.Name });
                     }
 
                     _dbContext.Leagues.Add(league);

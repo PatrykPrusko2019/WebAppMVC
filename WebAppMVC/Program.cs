@@ -1,6 +1,7 @@
 
 using WebAppMVC.Infrastructure.Extensions;
 using WebAppMVC.Infrastructure.Seeders;
+using WebAppMVC.Application.Extensions;
 
         
             var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ using WebAppMVC.Infrastructure.Seeders;
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             builder.Services.AddInfrastructure(builder.Configuration);
+            builder.Services.AddApplication();
 
             var app = builder.Build();
 

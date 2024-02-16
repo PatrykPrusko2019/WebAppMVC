@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebAppMVC.Domain.Interfaces;
 using WebAppMVC.Infrastructure.Persistence;
+using WebAppMVC.Infrastructure.Repository;
 using WebAppMVC.Infrastructure.Seeders;
 
 namespace WebAppMVC.Infrastructure.Extensions
@@ -14,6 +16,8 @@ namespace WebAppMVC.Infrastructure.Extensions
                 configuration.GetConnectionString("WebAppMVCDbContext")));
 
             services.AddScoped<FootballTeamSeeder>();
+
+            services.AddScoped<ILeagueRepository, LeagueRepository>();
         }
     }
 }
