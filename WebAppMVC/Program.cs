@@ -1,15 +1,22 @@
-namespace WebAppMVC
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
+
+using WebAppMVC.Infrastructure.Extensions;
+using WebAppMVC.Infrastructure.Seeders;
+
+        
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
+            builder.Services.AddInfrastructure(builder.Configuration);
+
             var app = builder.Build();
+
+            var scope = app.Services.CreateScope();
+
+            var seeder = scope.ServiceProvider.GetRequiredService<FootballTeamSeeder>();
+
+            await seeder.Seed();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -31,6 +38,4 @@ namespace WebAppMVC
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
-        }
-    }
-}
+ 

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -6,8 +6,22 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.16" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.16">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.16" />
   </ItemGroup>
+
+
+	<ItemGroup>
+		<ProjectReference Include="..\WebAppMVC.Application\WebAppMVC.Application.csproj" />
+		<ProjectReference Include="..\WebAppMVC.Infrastructure\WebAppMVC.Infrastructure.csproj" />
+	</ItemGroup>
 
 </Project>
