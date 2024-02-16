@@ -1,0 +1,19 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using WebAppMVC.Infrastructure.Persistence;
+using WebAppMVC.Infrastructure.Seeders;
+
+namespace WebAppMVC.Infrastructure.Extensions
+{
+    public static class ServiceCollectionExtension
+    {
+        public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<WebAppMVCDbContext>(options => options.UseSqlServer(
+                configuration.GetConnectionString("WebAppMVCDbContext")));
+
+            services.AddScoped<FootballTeamSeeder>();
+        }
+    }
+}
