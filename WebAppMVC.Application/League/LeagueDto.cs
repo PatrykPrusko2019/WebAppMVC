@@ -4,15 +4,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebAppMVC.Application.FootballTeam;
 using WebAppMVC.Domain.Entities;
 
 namespace WebAppMVC.Application.League
 {
     public class LeagueDto
     {
-        [Required(ErrorMessage = "Enter the name of league, minimum 6 characters !!!")]
-        [MinLength(6)]
+        public int Id { get; set; }
         public string Name { get; set; }
         public string? TeamNames { get; set; } // separator -> ;
+        public virtual List<FootballTeamDto>? FootballTeams { get; set; }
     }
 }

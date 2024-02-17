@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using WebAppMVC.Domain.Entities;
 using WebAppMVC.Domain.Interfaces;
 using WebAppMVC.Infrastructure.Persistence;
@@ -59,5 +60,16 @@ namespace WebAppMVC.Infrastructure.Repository
             _dbContext.Leagues.Add(league);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<League>> GetAll()
+        => await _dbContext.Leagues.ToListAsync();
+
+        public Task<League?> GetByName(string name)
+        => _dbContext.Leagues.FirstOrDefaultAsync(l => l.Name.ToLower() == name.ToLower());
+
+        public async Task<League> GetLeagueById(int id)
+        => await _dbContext.Leagues
+            .Include(f => f.FootballTeams)
+            .FirstAsync(l => l.Id == id);
     }
 }

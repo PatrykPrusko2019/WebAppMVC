@@ -1,18 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using WebAppMVC.Application.League;
-using WebAppMVC.Application.Services;
-using WebAppMVC.Domain.Entities;
-using WebAppMVC.Domain.Interfaces;
+using WebAppMVC.Application.League.Commands.CreateLeague;
+using WebAppMVC.Application.League.Queries.GetAllLeagues;
+using WebAppMVC.Application.League.Queries.GetLeagueById;
 
 namespace WebAppMVC.Controllers
 {
     public class LeagueController : Controller
     {
-        private readonly ILeagueService leagueService;
+        private readonly IMediator mediator;
 
-        public LeagueController(ILeagueService leagueService)
+        public LeagueController(IMediator mediator)
         {
-            this.leagueService = leagueService;
+            this.mediator = mediator;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var leagues = await mediator.Send(new GetAllLeaguesQuery());
+            return View(leagues);
         }
 
         public IActionResult Create()
@@ -20,16 +27,25 @@ namespace WebAppMVC.Controllers
             return View();
         }
 
+
+        [Route("League/{id}/Details")]
+        public async Task<IActionResult> Details(int id)
+        {
+            var leagueDto = await mediator.Send(new GetLeagueByIdQuery(id));
+            return View(leagueDto);
+        }
+
+
         [HttpPost]
-        public async Task<IActionResult> Create(LeagueDto league)
+        public async Task<IActionResult> Create(CreateLeagueCommand command)
         {
             if (!ModelState.IsValid)
             {
-                return View(league);
+                return View(command);
             }
 
-            await leagueService.Create(league);
-            return RedirectToAction(nameof(Create)); // todo refactor
+            await mediator.Send(command);
+            return RedirectToAction(nameof(Index)); 
         }
     }
 }

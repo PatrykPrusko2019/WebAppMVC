@@ -1,11 +1,14 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebAppMVC.Application.League.Commands.CreateLeague;
 using WebAppMVC.Application.Mappings;
-using WebAppMVC.Application.Services;
 
 namespace WebAppMVC.Application.Extensions
 {
@@ -13,9 +16,13 @@ namespace WebAppMVC.Application.Extensions
     {
         public static void AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<ILeagueService, LeagueService>();
+            services.AddMediatR(typeof(CreateLeagueCommand));
 
             services.AddAutoMapper(typeof(LeagueMappingProfile));
+
+            services.AddValidatorsFromAssemblyContaining<CreateLeagueCommandValidator>()
+                .AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
         }
     }
 }

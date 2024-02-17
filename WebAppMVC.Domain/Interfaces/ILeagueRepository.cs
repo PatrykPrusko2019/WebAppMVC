@@ -10,5 +10,8 @@ namespace WebAppMVC.Domain.Interfaces
     public interface ILeagueRepository
     {
         Task Create(League league);
+        Task<League?> GetByName(string name);
+        Task<IEnumerable<League>> GetAll();
+        Task<League> GetLeagueById(int id);
     }
 }
