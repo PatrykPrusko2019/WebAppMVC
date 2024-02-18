@@ -13,7 +13,11 @@ namespace WebAppMVC.Infrastructure.Extensions
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<WebAppMVCDbContext>(options => options.UseSqlServer(
-                configuration.GetConnectionString("WebAppMVCDbContext")));
+                configuration.GetConnectionString("WebAppMVCDbContext"),
+                sqlServerOptionsAction: sqlOptions =>
+                {
+                    sqlOptions.EnableRetryOnFailure();
+                }));
 
             services.AddScoped<FootballTeamSeeder>();
 

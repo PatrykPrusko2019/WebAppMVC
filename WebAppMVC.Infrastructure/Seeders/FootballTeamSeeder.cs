@@ -1,5 +1,4 @@
-﻿
-using System.Text.Json;
+﻿using Microsoft.EntityFrameworkCore;
 using WebAppMVC.Domain.Entities;
 using WebAppMVC.Infrastructure.Persistence;
 
@@ -18,8 +17,14 @@ namespace WebAppMVC.Infrastructure.Seeders
 
         public async Task Seed()
         {
-            if (await _dbContext.Database.CanConnectAsync()) 
+            if (!await _dbContext.Database.CanConnectAsync()) 
             {
+                
+                var pendingMigrations = _dbContext.Database.GetPendingMigrations();
+                if (pendingMigrations != null && pendingMigrations.Any())
+                {
+                    _dbContext.Database.Migrate();
+                }
                 
                 if (!_dbContext.Leagues.Any())
                 {
