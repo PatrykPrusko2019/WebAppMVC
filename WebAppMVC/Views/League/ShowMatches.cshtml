@@ -1,0 +1,71 @@
+﻿@model IEnumerable<WebAppMVC.Application.Match.MatchDto>
+
+@{
+    ViewData["Title"] = "Show Matches";
+}
+
+<h1>Show Matches</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NameFirstTeam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NameSecondTeam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Result)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GoalScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QueueId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QueueName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameFirstTeam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameSecondTeam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Result)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GoalScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QueueId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QueueName)
+            </td>
+            
+               
+        </tr>
+            
+}    
+    </tbody>
+</table>
+
+            <p>
+    <a class="btn btn-primary" asp-controller="League" asp-action="Details" asp-route-id="@Model.First().LeagueId">Return League Football Teams</a>
+            </p>

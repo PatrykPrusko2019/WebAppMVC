@@ -8,6 +8,7 @@ namespace WebAppMVC.Application.FootballTeam
 {
     public class FootballTeamDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public int MeetingsWon { get; set; }
         public int Points { get; set; }

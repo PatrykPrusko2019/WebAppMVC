@@ -4,6 +4,7 @@ using WebAppMVC.Application.League;
 using WebAppMVC.Application.League.Commands.CreateLeague;
 using WebAppMVC.Application.League.Queries.GetAllLeagues;
 using WebAppMVC.Application.League.Queries.GetLeagueById;
+using WebAppMVC.Application.League.Queries.GetMatchResultsByTeamId;
 
 namespace WebAppMVC.Controllers
 {
@@ -36,6 +37,15 @@ namespace WebAppMVC.Controllers
         }
 
 
+        [Route("League/{id}/ShowMatches")]
+        public async Task<IActionResult> ShowMatches(int id)
+        {
+            var leagueDto = await mediator.Send(new GetMatchResultsByTeamIdQuery(id));
+            
+            return View(leagueDto);
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateLeagueCommand command)
         {
@@ -47,5 +57,6 @@ namespace WebAppMVC.Controllers
             await mediator.Send(command);
             return RedirectToAction(nameof(Index)); 
         }
+
     }
 }

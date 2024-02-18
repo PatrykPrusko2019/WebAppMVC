@@ -71,6 +71,8 @@ namespace WebAppMVC.Infrastructure.Migrations
                     NameSecondTeam = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Result = table.Column<int>(type: "int", nullable: false),
                     GoalScore = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    QueueName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LeagueId = table.Column<int>(type: "int", nullable: false),
                     QueueId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

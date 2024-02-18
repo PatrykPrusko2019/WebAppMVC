@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebAppMVC.Domain.Entities
+namespace WebAppMVC.Application.Match
 {
-    public  class Match
+    public class MatchDto
     {
         public int Id { get; set; }
         public string NameFirstTeam { get; set; }
@@ -14,10 +14,9 @@ namespace WebAppMVC.Domain.Entities
         public int Result { get; set; }
         public string GoalScore { get; set; } // 4 : 3
 
+        public int QueueId { get; set; }
+
         public string QueueName { get; set; }
         public int LeagueId { get; set; }
-
-        public int QueueId { get; set; }
-        public virtual Queue Queue { get; set; }
     }
 }

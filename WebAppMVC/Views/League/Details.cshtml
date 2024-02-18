@@ -4,14 +4,17 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>League </h1>
+<h1>League Football Teams</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table table-striped table-hover">
     <thead>
         <tr>
+            <th>
+                Index
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -30,9 +33,15 @@
             <th></th>
         </tr>
     </thead>
+    @{
+        int rowNo = 0;
+    }
     <tbody>
 @foreach (var item in Model) {
         <tr>
+              <td>
+                    @(rowNo += 1)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -49,14 +58,23 @@
                 @Html.DisplayFor(modelItem => item.LeagueId)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                    <input type="submit" name="" />
 
-
+                    <a class="btn btn-primary" asp-controller="League" asp-action="ShowMatches" asp-route-id="@item.Id">Show Matches</a>
+                    
             </td>
+               
         </tr>
 }
     </tbody>
 </table>
+
+
+<p>
+    <a class="btn btn-primary" asp-controller="League" asp-action="Index">Return All Leagues</a>
+</p>
+
+
+
+
+
+

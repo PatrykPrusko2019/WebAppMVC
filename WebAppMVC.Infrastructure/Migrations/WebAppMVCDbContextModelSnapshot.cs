@@ -85,6 +85,9 @@ namespace WebAppMVC.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("LeagueId")
+                        .HasColumnType("int");
+
                     b.Property<string>("NameFirstTeam")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -95,6 +98,10 @@ namespace WebAppMVC.Infrastructure.Migrations
 
                     b.Property<int>("QueueId")
                         .HasColumnType("int");
+
+                    b.Property<string>("QueueName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Result")
                         .HasColumnType("int");

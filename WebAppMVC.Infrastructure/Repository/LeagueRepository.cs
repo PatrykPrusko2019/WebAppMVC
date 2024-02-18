@@ -1,8 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.IdentityModel.Tokens;
+using System.Diagnostics.Eventing.Reader;
+using System.Text;
 using WebAppMVC.Domain.Entities;
 using WebAppMVC.Domain.Interfaces;
 using WebAppMVC.Infrastructure.Persistence;
+using WebAppMVC.Infrastructure.Seeders;
 
 namespace WebAppMVC.Infrastructure.Repository
 {
@@ -49,6 +53,9 @@ namespace WebAppMVC.Infrastructure.Repository
                 actualList = listsTeamsFirstLeagua;
             }
 
+            actualList = CheckDuplicateNameTeam(actualList);
+
+
             league.TeamNames = string.Join(";", actualList);
 
             //adds new footballTeams
@@ -61,6 +68,29 @@ namespace WebAppMVC.Infrastructure.Repository
             await _dbContext.SaveChangesAsync();
         }
 
+        private string[] CheckDuplicateNameTeam(string[] actualList)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < actualList.Length; i++) 
+            {
+                sb.Clear();
+                string teamName = actualList[i];
+
+                while (_dbContext.FootballTeams.Any(f => f.Name == actualList[i]))
+                {
+                    if (_dbContext.FootballTeams.Any(f => f.Name == teamName))
+                    {
+                        Random random = new Random();
+                        sb.Append(teamName + random.Next(10_000));
+                        actualList[i] = sb.ToString();
+                    }
+                }
+                
+            }
+            return actualList;
+        }
+
         public async Task<IEnumerable<League>> GetAll()
         => await _dbContext.Leagues.ToListAsync();
 
@@ -71,5 +101,25 @@ namespace WebAppMVC.Infrastructure.Repository
         => await _dbContext.Leagues
             .Include(f => f.FootballTeams)
             .FirstAsync(l => l.Id == id);
+
+        public async Task<IEnumerable<Match>> GetMatchResultsByTeamIdQuery(int id)
+        {
+            var teamName = _dbContext.FootballTeams.FirstOrDefault(f => f.Id == id).Name;
+            var matchResults = await _dbContext.Matches.Where(m => m.NameFirstTeam == teamName || m.NameSecondTeam == teamName).ToListAsync();
+
+            if (matchResults == null || matchResults.Count == 0)
+            { // created new match results
+                FootballTeamSeeder footballTeamSeeder = new FootballTeamSeeder(_dbContext);
+                var leagueName = _dbContext.FootballTeams.FirstOrDefault(f => f.Name == teamName).LeagueName;
+                var results = footballTeamSeeder.GetQueues(leagueName);
+
+                _dbContext.Queues.AddRange(results);
+                await _dbContext.SaveChangesAsync();
+
+                matchResults = await _dbContext.Matches.Where(m => m.NameFirstTeam == teamName || m.NameSecondTeam == teamName).ToListAsync();
+            }
+
+            return matchResults;
+        }
     }
 }

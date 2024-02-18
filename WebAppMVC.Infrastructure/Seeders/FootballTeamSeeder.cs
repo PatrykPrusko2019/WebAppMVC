@@ -36,7 +36,7 @@ namespace WebAppMVC.Infrastructure.Seeders
 
                 if (!_dbContext.Queues.Any())
                 {
-                    var queues = GetQueues();
+                    var queues = GetQueues("Belgian");
                     _dbContext.Queues.AddRange(queues);
                     await _dbContext.SaveChangesAsync();
                 }
@@ -45,9 +45,9 @@ namespace WebAppMVC.Infrastructure.Seeders
 
         }
 
-        private IEnumerable<Queue> GetQueues()
+        public IEnumerable<Queue> GetQueues(string leagueName)
         {
-            var footballTeams = _dbContext.FootballTeams.Where(t => t.LeagueName == "Belgian").ToList(); // Belgian League
+            var footballTeams = _dbContext.FootballTeams.Where(t => t.LeagueName == leagueName).ToList(); // Belgian League
 
             var matches = new List<Match>();
             var queries = new List<Queue>();
@@ -82,6 +82,8 @@ namespace WebAppMVC.Infrastructure.Seeders
                     Random random = new Random();
                     var match = new Match() { NameFirstTeam = footballTeams[firstMatch - 1].Name, NameSecondTeam = footballTeams[secondMatch - 1].Name, Result = random.Next(2)+1 };
                     match.GoalScore = match.Result == 1 ? "1 : 0" : "0 : 1";
+                    match.QueueName = queries[round - 1].Description;
+                    match.LeagueId = footballTeams[round - 1].LeagueId;
                     queries[round - 1].Matches.Add(match);
 
                     var footballTeam = footballTeams.FirstOrDefault(f => f.Name == (match.Result == 1 ? match.NameFirstTeam : match.NameSecondTeam));
