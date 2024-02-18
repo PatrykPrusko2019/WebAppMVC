@@ -102,7 +102,7 @@ namespace WebAppMVC.Infrastructure.Repository
             .Include(f => f.FootballTeams)
             .FirstAsync(l => l.Id == id);
 
-        public async Task<IEnumerable<Match>> GetMatchResultsByTeamIdQuery(int id)
+        public async Task<IEnumerable<Match>> GetMatchResultsByTeamId(int id)
         {
             var teamName = _dbContext.FootballTeams.FirstOrDefault(f => f.Id == id).Name;
             var matchResults = await _dbContext.Matches.Where(m => m.NameFirstTeam == teamName || m.NameSecondTeam == teamName).ToListAsync();
@@ -120,6 +120,29 @@ namespace WebAppMVC.Infrastructure.Repository
             }
 
             return matchResults;
+        }
+
+        public async Task<FavouriteTeamsUser> AddTeamToFavouriteTeamsByTeamId(int id, string userId)
+        {
+            var team = _dbContext.FootballTeams.FirstOrDefault(f => f.Id == id);
+
+            var favouriteTeam = new FavouriteTeamsUser()
+            {
+                FootballTeamId = team.Id,
+                FootballTeamName = team.Name,
+                MeetingsWon = team.MeetingsWon,
+                Points = team.Points,
+                LeagueName = team.LeagueName,
+                LeagueId = team.LeagueId
+            };
+
+            favouriteTeam.UserId = userId;
+
+            if (_dbContext.FavouriteTeamsUsers.Any(t => t.FootballTeamId == favouriteTeam.FootballTeamId)) return new FavouriteTeamsUser();
+            _dbContext.FavouriteTeamsUsers.Add(favouriteTeam);
+            _dbContext.SaveChanges();
+
+            return favouriteTeam;
         }
     }
 }

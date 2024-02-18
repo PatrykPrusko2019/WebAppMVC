@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebAppMVC.Domain.Interfaces;
@@ -18,6 +19,9 @@ namespace WebAppMVC.Infrastructure.Extensions
                 {
                     sqlOptions.EnableRetryOnFailure();
                 }));
+
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddEntityFrameworkStores<WebAppMVCDbContext>();
 
             services.AddScoped<FootballTeamSeeder>();
 

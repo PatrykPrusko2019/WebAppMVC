@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using WebAppMVC.Application.FavouriteTeamsUser;
 using WebAppMVC.Application.FootballTeam;
 using WebAppMVC.Application.League;
 using WebAppMVC.Application.Match;
@@ -18,6 +19,9 @@ namespace WebAppMVC.Application.Mappings
 
             CreateMap<MatchDto, Domain.Entities.Match>();
             CreateMap<Domain.Entities.Match, MatchDto>();
+
+            CreateMap<FavouriteTeamsUserDto, Domain.Entities.FavouriteTeamsUser>();
+            CreateMap<Domain.Entities.FavouriteTeamsUser, FavouriteTeamsUserDto>();
         }
     }
 }

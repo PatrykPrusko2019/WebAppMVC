@@ -24,12 +24,9 @@ namespace WebAppMVC.Application.League.Queries.GetMatchResultsByTeamId
 
         public async Task<IEnumerable<MatchDto>> Handle(GetMatchResultsByTeamIdQuery request, CancellationToken cancellationToken)
         {
-            var matchResults = await leagueRepository.GetMatchResultsByTeamIdQuery(request.Id);
+            var matchResults = await leagueRepository.GetMatchResultsByTeamId(request.Id);
 
             var matchResultsDto = mapper.Map<IEnumerable<MatchDto>>(matchResults);
-
-            
-
 
             return matchResultsDto;
         }

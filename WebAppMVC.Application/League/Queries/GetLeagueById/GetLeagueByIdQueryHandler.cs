@@ -5,7 +5,7 @@ using WebAppMVC.Domain.Interfaces;
 
 namespace WebAppMVC.Application.League.Queries.GetLeagueById
 {
-    public class GetLeagueByIdQueryHandler : IRequestHandler<GetLeagueByIdQuery, IEnumerable<FootballTeamDto>>
+    public class GetLeagueByIdQueryHandler : IRequestHandler<GetLeagueByIdQuery, IEnumerable<FootballTeamDto>>  
     {
         private readonly ILeagueRepository leagueRepository;
         private readonly IMapper mapper;

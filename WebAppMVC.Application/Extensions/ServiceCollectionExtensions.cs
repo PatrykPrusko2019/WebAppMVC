@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebAppMVC.Application.ApplicationUser;
 using WebAppMVC.Application.League.Commands.CreateLeague;
 using WebAppMVC.Application.Mappings;
 
@@ -16,6 +17,8 @@ namespace WebAppMVC.Application.Extensions
     {
         public static void AddApplication(this IServiceCollection services)
         {
+            services.AddScoped<IUserContext, UserContext>();
+
             services.AddMediatR(typeof(CreateLeagueCommand));
 
             services.AddAutoMapper(typeof(LeagueMappingProfile));

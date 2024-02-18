@@ -1,7 +1,9 @@
-﻿using MediatR;
+﻿
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebAppMVC.Application.League;
 using WebAppMVC.Application.League.Commands.CreateLeague;
+using WebAppMVC.Application.League.Queries.AddNewTeamToFavouriteTeams;
 using WebAppMVC.Application.League.Queries.GetAllLeagues;
 using WebAppMVC.Application.League.Queries.GetLeagueById;
 using WebAppMVC.Application.League.Queries.GetMatchResultsByTeamId;
@@ -23,9 +25,23 @@ namespace WebAppMVC.Controllers
             return View(leagues);
         }
 
+        [Authorize]
         public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Create(CreateLeagueCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(command);
+            }
+
+            await mediator.Send(command);
+            return RedirectToAction(nameof(Index));
         }
 
 
@@ -45,18 +61,14 @@ namespace WebAppMVC.Controllers
             return View(leagueDto);
         }
 
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateLeagueCommand command)
+        [Authorize]
+        [Route("League/{id}/AddToFavouriteTeams")]
+        public async Task<IActionResult> AddToFavouriteTeams(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(command);
-            }
+            var result = await mediator.Send(new AddNewTeamToFavouriteTeamsQuery(id));
 
-            await mediator.Send(command);
-            return RedirectToAction(nameof(Index)); 
+            return RedirectToAction(nameof(Index));
         }
-
+        
     }
 }

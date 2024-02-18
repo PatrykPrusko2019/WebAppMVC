@@ -12,6 +12,7 @@ using WebAppMVC.Application.Extensions;
             builder.Services.AddInfrastructure(builder.Configuration);
             builder.Services.AddApplication();
 
+
             var app = builder.Build();
 
             var scope = app.Services.CreateScope();
@@ -39,5 +40,7 @@ using WebAppMVC.Application.Extensions;
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
+            app.MapRazorPages();
+            
             app.Run();
  

@@ -5,11 +5,11 @@ VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppMVC", "WebAppMVC\WebAppMVC.csproj", "{408DE950-2CC6-4CB5-B8E6-991756D76422}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppMVC.Domain", "WebAppMVC.Domain\WebAppMVC.Domain.csproj", "{47DEE429-0ED7-4F42-A44D-3B895A261307}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppMVC.Domain", "WebAppMVC.Domain\WebAppMVC.Domain.csproj", "{47DEE429-0ED7-4F42-A44D-3B895A261307}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppMVC.Application", "WebAppMVC.Application\WebAppMVC.Application.csproj", "{701810F0-B42D-46BE-A10A-7D702BAB64BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppMVC.Application", "WebAppMVC.Application\WebAppMVC.Application.csproj", "{701810F0-B42D-46BE-A10A-7D702BAB64BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppMVC.Infrastructure", "WebAppMVC.Infrastructure\WebAppMVC.Infrastructure.csproj", "{9107BAB2-81DD-45BE-BD45-A4AE9C49ECDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppMVC.Infrastructure", "WebAppMVC.Infrastructure\WebAppMVC.Infrastructure.csproj", "{9107BAB2-81DD-45BE-BD45-A4AE9C49ECDC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

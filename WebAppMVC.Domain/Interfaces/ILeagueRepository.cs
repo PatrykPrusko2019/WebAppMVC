@@ -13,6 +13,7 @@ namespace WebAppMVC.Domain.Interfaces
         Task<League?> GetByName(string name);
         Task<IEnumerable<League>> GetAll();
         Task<League> GetLeagueById(int id);
-        Task<IEnumerable<Match>> GetMatchResultsByTeamIdQuery(int id);
+        Task<IEnumerable<Match>> GetMatchResultsByTeamId(int id);
+        Task<FavouriteTeamsUser?>   AddTeamToFavouriteTeamsByTeamId(int id, string userId);
     }
 }
