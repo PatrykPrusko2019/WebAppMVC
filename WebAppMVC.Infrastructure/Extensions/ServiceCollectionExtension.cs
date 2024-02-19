@@ -26,6 +26,7 @@ namespace WebAppMVC.Infrastructure.Extensions
             services.AddScoped<FootballTeamSeeder>();
 
             services.AddScoped<ILeagueRepository, LeagueRepository>();
+            services.AddScoped<ITeamRepository, TeamRepository>();
         }
     }
 }

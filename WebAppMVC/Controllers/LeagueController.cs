@@ -1,12 +1,13 @@
-﻿
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAppMVC.Application.League.Commands.CreateLeague;
+using WebAppMVC.Application.League.Commands.RemoveFavouriteTeam;
 using WebAppMVC.Application.League.Queries.AddNewTeamToFavouriteTeams;
 using WebAppMVC.Application.League.Queries.GetAllLeagues;
 using WebAppMVC.Application.League.Queries.GetLeagueById;
 using WebAppMVC.Application.League.Queries.GetMatchResultsByTeamId;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace WebAppMVC.Controllers
 {
@@ -56,19 +57,19 @@ namespace WebAppMVC.Controllers
         [Route("League/{id}/ShowMatches")]
         public async Task<IActionResult> ShowMatches(int id)
         {
-            var leagueDto = await mediator.Send(new GetMatchResultsByTeamIdQuery(id));
+            var leaguesDto = await mediator.Send(new GetMatchResultsByTeamIdQuery(id));
             
-            return View(leagueDto);
+            return View(leaguesDto);
         }
 
+        
+        [HttpGet]
         [Authorize]
-        [Route("League/{id}/AddToFavouriteTeams")]
-        public async Task<IActionResult> AddToFavouriteTeams(int id)
+        public async Task<IActionResult> AddNewTeamToFavouriteTeams(int id)
         {
             var result = await mediator.Send(new AddNewTeamToFavouriteTeamsQuery(id));
-
-            return RedirectToAction(nameof(Index));
+            return View(result);
         }
-        
+
     }
 }

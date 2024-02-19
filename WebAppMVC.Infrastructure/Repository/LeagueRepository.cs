@@ -144,5 +144,12 @@ namespace WebAppMVC.Infrastructure.Repository
 
             return favouriteTeam;
         }
+
+        public async Task Delete(int id)
+        {
+            var deleteFavouriteTeam = _dbContext.FavouriteTeamsUsers.FirstOrDefault(t => t.Id == id);
+            _dbContext.FavouriteTeamsUsers.Remove(deleteFavouriteTeam);
+            _dbContext.SaveChanges();
+        }
     }
 }

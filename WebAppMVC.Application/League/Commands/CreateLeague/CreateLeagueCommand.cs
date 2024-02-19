@@ -7,8 +7,5 @@ using System.Threading.Tasks;
 
 namespace WebAppMVC.Application.League.Commands.CreateLeague
 {
-    public class CreateLeagueCommand : LeagueDto, IRequest
-    {
-
-    }
+    public class CreateLeagueCommand : LeagueDto, IRequest { }
 }

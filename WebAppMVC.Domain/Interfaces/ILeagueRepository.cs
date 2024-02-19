@@ -14,6 +14,7 @@ namespace WebAppMVC.Domain.Interfaces
         Task<IEnumerable<League>> GetAll();
         Task<League> GetLeagueById(int id);
         Task<IEnumerable<Match>> GetMatchResultsByTeamId(int id);
-        Task<FavouriteTeamsUser?>   AddTeamToFavouriteTeamsByTeamId(int id, string userId);
+        Task<FavouriteTeamsUser?> AddTeamToFavouriteTeamsByTeamId(int id, string userId);
+        Task Delete(int id);
     }
 }
