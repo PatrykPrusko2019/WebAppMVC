@@ -57,7 +57,11 @@
             <td>
 
                     <a class="btn btn-primary" asp-controller="League" asp-action="ShowMatches" asp-route-id="@item.Id">Show Matches</a>
-                    <a class="btn btn-primary" onclick="AddNewTeamToFavouriteTeams('@item.Id')">Add new Team</a>
+                   
+                    @if (!(User.Identity == null || !User.Identity.IsAuthenticated))
+                    {
+                        <a class="btn btn-primary" onclick="AddNewTeamToFavouriteTeams('@item.Id')">Add new Team</a>
+                    }
 
                     <a class="btn btn-primary" href="#staticBackdrop" data-bs-toggle="modal" onclick="GetMatches('@item.Id')">Quick match results</a>
 
