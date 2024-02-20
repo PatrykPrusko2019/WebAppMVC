@@ -47,5 +47,14 @@ namespace WebAppMVC.Controllers
 
             return View(favouriteTeams);
         }
+
+        [Authorize]
+        [Route("Team/ShowAllMatchQueues")]
+        public async Task<IActionResult> ShowAllMatchQueues()
+        {
+            var favouriteTeams = await mediator.Send(new GetShowAllMatchQueuesQuery());
+
+            return View(favouriteTeams);
+        }
     }
 }

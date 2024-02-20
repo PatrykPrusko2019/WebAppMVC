@@ -23,7 +23,7 @@ namespace WebAppMVC.Application.Team.Queries
 
         public async Task<IEnumerable<FootballTeamDto>> Handle(GetShowAllFootballTeamsQuery request, CancellationToken cancellationToken)
         {
-            var footballTeams = await teamRepository.GetFootbalTeams();
+            var footballTeams = await teamRepository.GetFootballTeams();
 
             var footballTeamsDtos = mapper.Map<IEnumerable<FootballTeamDto>>(footballTeams);
 
