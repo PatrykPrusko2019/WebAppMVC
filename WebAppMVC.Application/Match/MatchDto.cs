@@ -18,5 +18,7 @@ namespace WebAppMVC.Application.Match
 
         public string QueueName { get; set; }
         public int LeagueId { get; set; }
+
+        public string Results { get; set; }
     }
 }

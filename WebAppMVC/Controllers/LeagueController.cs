@@ -1,12 +1,14 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 using WebAppMVC.Application.League.Commands.CreateLeague;
 using WebAppMVC.Application.League.Commands.RemoveFavouriteTeam;
 using WebAppMVC.Application.League.Queries.AddNewTeamToFavouriteTeams;
 using WebAppMVC.Application.League.Queries.GetAllLeagues;
 using WebAppMVC.Application.League.Queries.GetLeagueById;
 using WebAppMVC.Application.League.Queries.GetMatchResultsByTeamId;
+using WebAppMVC.Application.Match;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace WebAppMVC.Controllers
@@ -62,7 +64,27 @@ namespace WebAppMVC.Controllers
             return View(leaguesDto);
         }
 
-        
+        [HttpGet]
+        public async Task<IActionResult> ShowMatchModal(int id)
+        {
+            var matchesDtos = await mediator.Send(new GetMatchResultsByTeamIdQuery(id));
+            var lists = matchesDtos.ToList();
+
+            StringBuilder sb = new StringBuilder();
+
+            MatchDto results = new MatchDto();
+            for (int i = 0; i < lists.Count(); i++)
+            {
+                sb.Append(" [ ID: " + lists[i].Id + "; FirstNameTeam: " + lists[i].NameFirstTeam + "; SecondNameTeam: " + lists[i].NameSecondTeam
+                    + "; Result: " + lists[i].Result + "; GoalScore: " + lists[i].GoalScore + "; QueueId: " + lists[i].QueueId + "; QueueName: " + lists[i].QueueName + "; LeagueId: " + lists[i].LeagueId + " ] ");
+                sb.Append("\b");
+            }
+
+            results.Results = sb.ToString();
+
+            return Json(results);
+        }
+
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> AddNewTeamToFavouriteTeams(int id)

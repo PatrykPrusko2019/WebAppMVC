@@ -59,6 +59,26 @@
                     <a class="btn btn-primary" asp-controller="League" asp-action="ShowMatches" asp-route-id="@item.Id">Show Matches</a>
                     <a class="btn btn-primary" onclick="AddNewTeamToFavouriteTeams('@item.Id')">Add new Team</a>
 
+                    <a class="btn btn-primary" href="#staticBackdrop" data-bs-toggle="modal" onclick="GetMatches('@item.Id')">Quick match results</a>
+
+                    @* This is the modal component, you can find the  same code on the bootstrap  website *@
+
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Matches</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" id="MatchDto">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.css"> </script>
 
             </td>
@@ -94,6 +114,35 @@
                 }, 
             });
             window.alert(`Added a new team with id: ${id} to the favorite teams, if it already exists in the table of favorite teams, it will not add.'`)
+        }
+    </script>
+
+    <script>
+
+        function GetMatches(id) {
+
+            var postData = {
+                'Id': id,
+            };
+
+            $.ajax({
+                dataType: 'json',
+                type: "GET",
+                url: `/League/showMatchModal`,
+                data: postData,
+                success: function (res) {
+                    console.log(res)
+                    document.getElementById("MatchDto").innerHTML = '<table class="table table-striped table-bordered zero-configuration dataTable" role="grid">'
+                        + '<thead></th><th>Results Matches</th></tr></thead>'
+                        + '<tbody><tr><td>' + res["results"] + '</td></tr></tbody>'
+                        + '</table>';
+
+
+                    $('#staticBackdrop').modal()
+                },
+
+
+            });
         }
     </script>
 
