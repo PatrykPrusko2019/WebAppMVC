@@ -1,0 +1,62 @@
+﻿@model IEnumerable<WebAppMVC.Application.FootballTeam.FootballTeamDto>
+
+@{
+    ViewData["Title"] = "ShowAllFootballTeams";
+}
+
+<h1>All Football Teams</h1>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MeetingsWon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Points)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LeagueName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LeagueId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MeetingsWon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Points)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeagueName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeagueId)
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>
+
+<p>
+    <a class="btn btn-primary" asp-controller="Team" asp-action="Index">Return Teams</a>
+</p>

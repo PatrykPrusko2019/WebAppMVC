@@ -10,5 +10,6 @@ namespace WebAppMVC.Domain.Interfaces
     public interface ITeamRepository
     {
         Task<IEnumerable<FavouriteTeamsUser>> GetFavouriteTeamsByUserId(string userId);
+        Task<IEnumerable<FootballTeam>> GetFootbalTeams();
     }
 }

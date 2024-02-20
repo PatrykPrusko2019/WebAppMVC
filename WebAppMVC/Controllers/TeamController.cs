@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAppMVC.Application.FavouriteTeamsUser;
 using WebAppMVC.Application.League.Commands.RemoveFavouriteTeam;
+using WebAppMVC.Application.Team.Queries;
 using WebAppMVC.Application.Team.Query;
 
 namespace WebAppMVC.Controllers
@@ -36,6 +37,15 @@ namespace WebAppMVC.Controllers
         {
             var result = mediator.Send(new RemoveFavouriteTeamCommand(id));
             return View();
+        }
+
+        [Authorize]
+        [Route("Team/ShowAllFootballTeams")]
+        public async Task<IActionResult> ShowAllFootballTeams()
+        {
+            var favouriteTeams = await mediator.Send(new GetShowAllFootballTeamsQuery());
+
+            return View(favouriteTeams);
         }
     }
 }
