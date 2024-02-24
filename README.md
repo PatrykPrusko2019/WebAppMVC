@@ -31,5 +31,3 @@ Zadania dodatkowe:
 
 
 User zalogowany ma dostęp do wszystkich talel wyników z 15 kolejek, ma dostęp do dodawania usuwania swoich uluionych drużyn. Na stronie z tabelą danej ligii jest mozliwosc wyswietlenia dodatkowej tabeli wyników meczy danego zaznaczonego zespołu -> po przycisnieciu przycisku 'Quick Match', lepszy widok , gdy uzyje sie przycisku 'show all match'. Logowanie i rejestracja do konta. Algorytm generujacy nowe wyniki mecze i kolejki.
-
-Wieczorem dzisiaj siade to moge opis któtki jak co tworzylem po kolei , tylko z gita bede musiał sobie odświeżyć wiedze. Pozdrawiam.
