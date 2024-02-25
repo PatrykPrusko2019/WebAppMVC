@@ -101,9 +101,15 @@ namespace WebAppMVC.Infrastructure.Seeders
                         }
 
                         var footballTeam = footballTeams.FirstOrDefault(f => f.Name == searchedTeam);
+
                         if (footballTeam != null && newMatch.Result != 0)
                         {
                             footballTeam.MeetingsWon++;
+                            footballTeam.Points += points;
+                            _dbContext.FootballTeams.Update(footballTeam);
+                        }
+                        else if (footballTeam != null && newMatch.Result == 0)
+                        {
                             footballTeam.Points += points;
                             _dbContext.FootballTeams.Update(footballTeam);
                         }
