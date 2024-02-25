@@ -70,22 +70,10 @@ namespace WebAppMVC.Controllers
             var matchesDtos = await mediator.Send(new GetMatchResultsByTeamIdQuery(id));
             var lists = matchesDtos.ToList();
 
-            StringBuilder sb = new StringBuilder();
-
-            MatchDto results = new MatchDto();
-            for (int i = 0; i < lists.Count(); i++)
-            {
-                sb.Append(" [ ID: " + lists[i].Id + "; FirstNameTeam: " + lists[i].NameFirstTeam + "; SecondNameTeam: " + lists[i].NameSecondTeam
-                    + "; Result: " + lists[i].Result + "; GoalScore: " + lists[i].GoalScore + "; QueueId: " + lists[i].QueueId + "; QueueName: " + lists[i].QueueName + "; LeagueId: " + lists[i].LeagueId + " ] ");
-                sb.Append("\b");
-            }
-
-            results.Results = sb.ToString();
-
-            return Json(results);
+            return Json(lists.ToArray());
         }
 
-        [HttpGet]
+            [HttpGet]
         [Authorize]
         public async Task<IActionResult> AddNewTeamToFavouriteTeams(int id)
         {

@@ -18,7 +18,7 @@ using WebAppMVC.Application.Extensions;
             var scope = app.Services.CreateScope();
 
             var seeder = scope.ServiceProvider.GetRequiredService<FootballTeamSeeder>();
-
+            app.UseCors("WebAppMVC");
             await seeder.Seed();
 
             // Configure the HTTP request pipeline.

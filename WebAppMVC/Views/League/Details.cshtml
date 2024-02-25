@@ -137,10 +137,24 @@
                 success: function (res) {
                     console.log(res)
                     document.getElementById("MatchDto").innerHTML = '<table class="table table-striped table-bordered zero-configuration dataTable" role="grid">'
-                        + '<thead></th><th>Results Matches</th></tr></thead>'
-                        + '<tbody><tr><td>' + res["results"] + '</td></tr></tbody>'
-                        + '</table>';
-
+                        + '<thead><tr><th>Id</th><th>FirstNameTeam</th><th>SecondNameTeam</th><th>Result</th><th>GoalScore</th><th>QueueId</th><th>QueueName</th><th>LeagueId</th></tr></thead>'
+                        + '<tbody>'
+                        + '<tr><td>' + res[0]["id"] + '</td><td>' + res[0]["nameFirstTeam"] + '</td><td>' + res[0]["nameSecondTeam"] + '</td><td>' + res[0]["result"] + '</td><td>' + res[0]["goalScore"] + '</td><td>' + res[0]["queueId"] + '</td><td>' + res[0]["queueName"] + '</td><td>' + res[0]["leagueId"] + '</td></tr>'
+                        + '<tr><td>' + res[1]["id"] + '</td><td>' + res[1]["nameFirstTeam"] + '</td><td>' + res[1]["nameSecondTeam"] + '</td><td>' + res[1]["result"] + '</td><td>' + res[1]["goalScore"] + '</td><td>' + res[1]["queueId"] + '</td><td>' + res[1]["queueName"] + '</td><td>' + res[1]["leagueId"] + '</td></tr>'
+                        + '<tr><td>' + res[2]["id"] + '</td><td>' + res[2]["nameFirstTeam"] + '</td><td>' + res[2]["nameSecondTeam"] + '</td><td>' + res[2]["result"] + '</td><td>' + res[2]["goalScore"] + '</td><td>' + res[2]["queueId"] + '</td><td>' + res[2]["queueName"] + '</td><td>' + res[2]["leagueId"] + '</td></tr>'
+                        + '<tr><td>' + res[3]["id"] + '</td><td>' + res[3]["nameFirstTeam"] + '</td><td>' + res[3]["nameSecondTeam"] + '</td><td>' + res[3]["result"] + '</td><td>' + res[3]["goalScore"] + '</td><td>' + res[3]["queueId"] + '</td><td>' + res[3]["queueName"] + '</td><td>' + res[3]["leagueId"] + '</td></tr>'
+                        + '<tr><td>' + res[4]["id"] + '</td><td>' + res[4]["nameFirstTeam"] + '</td><td>' + res[4]["nameSecondTeam"] + '</td><td>' + res[4]["result"] + '</td><td>' + res[4]["goalScore"] + '</td><td>' + res[4]["queueId"] + '</td><td>' + res[4]["queueName"] + '</td><td>' + res[4]["leagueId"] + '</td></tr>'
+                        + '<tr><td>' + res[5]["id"] + '</td><td>' + res[5]["nameFirstTeam"] + '</td><td>' + res[5]["nameSecondTeam"] + '</td><td>' + res[5]["result"] + '</td><td>' + res[5]["goalScore"] + '</td><td>' + res[5]["queueId"] + '</td><td>' + res[5]["queueName"] + '</td><td>' + res[5]["leagueId"] + '</td></tr>'
+                        + '<tr><td>' + res[6]["id"] + '</td><td>' + res[6]["nameFirstTeam"] + '</td><td>' + res[6]["nameSecondTeam"] + '</td><td>' + res[6]["result"] + '</td><td>' + res[6]["goalScore"] + '</td><td>' + res[6]["queueId"] + '</td><td>' + res[6]["queueName"] + '</td><td>' + res[6]["leagueId"] + '</td></tr>'
+                        + '<tr><td>' + res[7]["id"] + '</td><td>' + res[7]["nameFirstTeam"] + '</td><td>' + res[7]["nameSecondTeam"] + '</td><td>' + res[7]["result"] + '</td><td>' + res[7]["goalScore"] + '</td><td>' + res[7]["queueId"] + '</td><td>' + res[7]["queueName"] + '</td><td>' + res[7]["leagueId"] + '</td></tr>'
+                        + '<tr><td>' + res[8]["id"] + '</td><td>' + res[8]["nameFirstTeam"] + '</td><td>' + res[8]["nameSecondTeam"] + '</td><td>' + res[8]["result"] + '</td><td>' + res[8]["goalScore"] + '</td><td>' + res[8]["queueId"] + '</td><td>' + res[8]["queueName"] + '</td><td>' + res[8]["leagueId"] + '</td></tr>'
+                        + '<tr><td>' + res[9]["id"] + '</td><td>' + res[9]["nameFirstTeam"] + '</td><td>' + res[9]["nameSecondTeam"] + '</td><td>' + res[9]["result"] + '</td><td>' + res[9]["goalScore"] + '</td><td>' + res[9]["queueId"] + '</td><td>' + res[9]["queueName"] + '</td><td>' + res[9]["leagueId"] + '</td></tr>'
+                        + '<tr><td>' + res[10]["id"] + '</td><td>' + res[10]["nameFirstTeam"] + '</td><td>' + res[10]["nameSecondTeam"] + '</td><td>' + res[10]["result"] + '</td><td>' + res[10]["goalScore"] + '</td><td>' + res[10]["queueId"] + '</td><td>' + res[10]["queueName"] + '</td><td>' + res[10]["leagueId"] + '</td></tr>'
+                        + '<tr><td>' + res[11]["id"] + '</td><td>' + res[11]["nameFirstTeam"] + '</td><td>' + res[11]["nameSecondTeam"] + '</td><td>' + res[11]["result"] + '</td><td>' + res[11]["goalScore"] + '</td><td>' + res[11]["queueId"] + '</td><td>' + res[11]["queueName"] + '</td><td>' + res[11]["leagueId"] + '</td></tr>'
+                        + '<tr><td>' + res[12]["id"] + '</td><td>' + res[12]["nameFirstTeam"] + '</td><td>' + res[12]["nameSecondTeam"] + '</td><td>' + res[12]["result"] + '</td><td>' + res[12]["goalScore"] + '</td><td>' + res[12]["queueId"] + '</td><td>' + res[12]["queueName"] + '</td><td>' + res[12]["leagueId"] + '</td></tr>'
+                        + '<tr><td>' + res[13]["id"] + '</td><td>' + res[13]["nameFirstTeam"] + '</td><td>' + res[13]["nameSecondTeam"] + '</td><td>' + res[13]["result"] + '</td><td>' + res[13]["goalScore"] + '</td><td>' + res[13]["queueId"] + '</td><td>' + res[13]["queueName"] + '</td><td>' + res[13]["leagueId"] + '</td></tr>'
+                        + '<tr><td>' + res[14]["id"] + '</td><td>' + res[14]["nameFirstTeam"] + '</td><td>' + res[14]["nameSecondTeam"] + '</td><td>' + res[14]["result"] + '</td><td>' + res[14]["goalScore"] + '</td><td>' + res[14]["queueId"] + '</td><td>' + res[14]["queueName"] + '</td><td>' + res[14]["leagueId"] + '</td></tr>'
+                        + '</tbody></table>';
 
                     $('#staticBackdrop').modal()
                 },
@@ -149,5 +163,6 @@
             });
         }
     </script>
+
 
     }

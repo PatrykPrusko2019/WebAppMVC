@@ -22,27 +22,11 @@ namespace WebAppMVC.Application.League.Queries.GetLeagueById
 
             var footballTeamDto = mapper.Map<IEnumerable<FootballTeamDto>>(league.FootballTeams);
 
-            var results = footballTeamDto.OrderByDescending(f => f.Points);
+            var results = footballTeamDto.OrderByDescending(f => f.MeetingsWon);
 
-            var listResults = results.ToList();
+            var results2 = results.OrderByDescending(f => f.Points);
 
-            for (var i = 0; i < listResults.Count(); i++)
-            {
-                var temp = listResults.ElementAt(i).Points;
-
-                if (temp == listResults.ElementAt(i + 1).Points)
-                {
-                    if (listResults.ElementAt(i).MeetingsWon < listResults.ElementAt(i+1).MeetingsWon)
-                    {
-                        var temp2 = listResults[i];
-                        listResults[i] = listResults[i+1];
-                        listResults[i+1] = temp2;
-                    }
-                }
-                if (i + 1 == results.Count()-1) break;
-            }
-
-            return results.ToArray();
+            return results2.ToArray();
         }
     }
 }
