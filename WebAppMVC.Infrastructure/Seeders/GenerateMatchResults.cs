@@ -101,7 +101,7 @@ namespace WebAppMVC.Infrastructure.Seeders
                         }
 
                         var footballTeam = footballTeams.FirstOrDefault(f => f.Name == searchedTeam);
-                        if (footballTeam != null)
+                        if (footballTeam != null && newMatch.Result != 0)
                         {
                             footballTeam.MeetingsWon++;
                             footballTeam.Points += points;
