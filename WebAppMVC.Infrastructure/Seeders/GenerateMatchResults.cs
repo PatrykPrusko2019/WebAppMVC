@@ -50,60 +50,86 @@ namespace WebAppMVC.Infrastructure.Seeders
                 queries.Add(new Queue() { Description = listsQueues[i], Matches = new List<Domain.Entities.Match>() });
             }
 
-            int rounds = firstLEaqueTeams.Length - 1;
-
-            
-            for (int round = 1; round <= rounds; round++)
+            int numberOfTeams = firstLEaqueTeams.Length;
+            int numberOfRounds = numberOfTeams - 1;
+           
+            for (int round = 1; round <= numberOfRounds; round++)
             {
-                // Console.WriteLine($"Queue {round}:");
+                 Console.WriteLine($"Queue {round}:");
 
-                for (int i = 0; i < firstLEaqueTeams.Length / 2; i++)
+                for (int i = 0; i < numberOfTeams / 2; i++)
                 {
-                    int team1Index = i;
-                    int team2Index = firstLEaqueTeams.Length - 1 - i;
+                    string team1 = firstLEaqueTeams[i];
+                    string team2 = firstLEaqueTeams[numberOfTeams - i - 1];
 
-                    int team1Score = GenerateRandomScore();
-                    int team2Score = GenerateRandomScore();
-
-                    // Console.WriteLine($"{listsTeamsFirstLeagua[team1Index]} vs {listsTeamsFirstLeagua[team2Index]}  results: {team1Score} : {team2Score}");
-
-                    var newMatch = CreateMatch(firstLEaqueTeams[team1Index], firstLEaqueTeams[team2Index], team1Score, team2Score);
-                   
-                    newMatch.QueueName = queries[round - 1].Description;
-                    newMatch.LeagueId = footballTeams[round - 1].LeagueId;
-                    queries[round - 1].Matches.Add(newMatch);
-
-                    string searchedTeam = "";
-                    int points = 0;
-                    switch(newMatch.Result)
+                    // Check if the pair has already played
+                    if (HasPlayed(firstLEaqueTeams, team1, team2, round))
                     {
-                        case 1:
-                            searchedTeam = newMatch.NameFirstTeam;
-                            points = 15;
-                            break;
-                        case 2:
-                            searchedTeam = newMatch.NameSecondTeam;
-                            points = 30;
-                            break;
-                        default:
-                            searchedTeam = newMatch.NameSecondTeam;
-                            points = 3;
-                            break;
+                        var lists = firstLEaqueTeams.ToList();
 
+                        int team1Index = lists.IndexOf(team1);
+                        int team2Index = lists.IndexOf(team2);
+
+                        int team1Score = GenerateRandomScore();
+                        int team2Score = GenerateRandomScore();
+
+                        Console.WriteLine($"{firstLEaqueTeams[team1Index]} vs {firstLEaqueTeams[team2Index]}  results: {team1Score} : {team2Score}");
+
+                        var newMatch = CreateMatch(firstLEaqueTeams[team1Index], firstLEaqueTeams[team2Index], team1Score, team2Score);
+
+                        newMatch.QueueName = queries[round - 1].Description;
+                        newMatch.LeagueId = footballTeams[round - 1].LeagueId;
+                        queries[round - 1].Matches.Add(newMatch);
+
+                        string searchedTeam = "";
+                        int points = 0;
+                        switch (newMatch.Result)
+                        {
+                            case 1:
+                                searchedTeam = newMatch.NameFirstTeam;
+                                points = 15;
+                                break;
+                            case 2:
+                                searchedTeam = newMatch.NameSecondTeam;
+                                points = 30;
+                                break;
+                            default:
+                                searchedTeam = newMatch.NameSecondTeam;
+                                points = 3;
+                                break;
+
+                        }
+
+                        var footballTeam = footballTeams.FirstOrDefault(f => f.Name == searchedTeam);
+                        if (footballTeam != null)
+                        {
+                            footballTeam.MeetingsWon++;
+                            footballTeam.Points += points;
+                            _dbContext.FootballTeams.Update(footballTeam);
+                        }
+
+                        _dbContext.SaveChanges();
+                    }
+                    else
+                    {
+                        // If the pair has already played, move the teams in a circle
+                        string temp = firstLEaqueTeams[1];
+                        for (int j = 1; j < numberOfTeams - 1; j++)
+                        {
+                            firstLEaqueTeams[j] = firstLEaqueTeams[j + 1];
+                        }
+                        firstLEaqueTeams[numberOfTeams - 1] = temp;
+                        i--; // We subtract and to stay in the same iteration and try again with another pair
                     }
 
-                    var footballTeam = footballTeams.FirstOrDefault(f => f.Name == searchedTeam);
-                    if (footballTeam != null)
-                    {
-                        footballTeam.MeetingsWon++;
-                        footballTeam.Points += points;
-                        _dbContext.FootballTeams.Update(footballTeam);
-                    }
-
-                    _dbContext.SaveChanges();
                 }
-
-                RotateTeams(firstLEaqueTeams); 
+                // Move the teams in the circle for each round
+                string temp2 = firstLEaqueTeams[1];
+                for (int k = 1; k < firstLEaqueTeams.Length - 1; k++)
+                {
+                    firstLEaqueTeams[k] = firstLEaqueTeams[k + 1];
+                }
+                firstLEaqueTeams[firstLEaqueTeams.Length - 1] = temp2;
             }
 
             return queries;
@@ -120,17 +146,24 @@ namespace WebAppMVC.Infrastructure.Seeders
             return match;
         }
 
-        private void RotateTeams(string[] teams)
+        private bool HasPlayed(string[] teams, string team1, string team2, int round)
         {
-            // Move the teams one position to the left (except for the first team)
-            string firstTeam = teams[0];
-
-            for (int i = 1; i < teams.Length; i++)
+            for (int i = 1; i <= round; i++)
             {
-                teams[i - 1] = teams[i];
+                // Check if the pair has already played in previous rounds
+                for (int j = 0; j < teams.Length / 2; j++)
+                {
+                    string previousTeam1 = teams[j];
+                    string previousTeam2 = teams[teams.Length - j - 1];
+
+                    if ((previousTeam1 == team1 && previousTeam2 == team2) || (previousTeam1 == team2 && previousTeam2 == team1))
+                    {
+                        return true;
+                    }
+                }
             }
 
-            teams[teams.Length - 1] = firstTeam;
+            return false;
         }
 
         private int GenerateRandomScore()
